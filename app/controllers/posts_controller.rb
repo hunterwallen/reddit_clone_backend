@@ -1,9 +1,10 @@
 class PostsController < ApplicationController
 
   def index
-    render json: Person.all
+    render json: Post.all
   end
 
 
-  
+
+
 end
