@@ -28,8 +28,8 @@ class Post
         results = DB.exec(
             <<-SQL
             INSERT INTO posts (author, title, body)
-            VALUES ('#{opts["author"]}', '#{opts["title"]}', '#{opts["body"]}', )
-            RETURNING id, author, title, body
+            VALUES ('#{opts["author"]}', '#{opts["title"]}', '#{opts["body"]}')
+            RETURNING author, title, body
             SQL
         )
         return {
