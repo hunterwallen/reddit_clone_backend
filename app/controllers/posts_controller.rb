@@ -9,7 +9,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    render json: Post.create(params["person"])
+    render json: Post.create(params["post"])
   end
 
   def update
@@ -20,31 +20,3 @@ class PostsController < ApplicationController
     render json: Post.delete(params["id"])
   end
 end
-
-
-
-# def self.find(id)
-#   result = DB.exec("SELECT * FROM posts WHERE id={#{id}};")
-#   return {
-#     "id" => results.first["id"].to_i,
-#     "title" => results.first["title"],
-#     "user" => results.first["user"],
-#     "body" => results.first["body"]
-#   }
-# end
-#
-# def self.create(opts)
-#   results = DB.exec(
-#     <<-SQL
-#       INSERT INTO posts (user, title, body)
-#       VALUES ( '#{opts["user"]}', '#{opts["title"]}', '#{opts["body"]}')
-#       RETURNING user, title, body;
-#       SQL
-#   )
-#   return {
-#     "id" => results.first["id"].to_i,
-#     "title" => results.first["title"],
-#     "user" => results.first["user"],
-#     "body" => results.first["body"]
-#   }
-# end
