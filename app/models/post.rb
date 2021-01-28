@@ -31,7 +31,7 @@ class Post
             <<-SQL
             INSERT INTO posts (author, title, body)
             VALUES "testing", '#{opts["title"]}', '#{opts["body"]}'
-            RETURNING *
+            RETURNING id, author, title, body
             SQL
         )
         return {
