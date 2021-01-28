@@ -27,9 +27,9 @@ class Post
     def self.create(opts)
         results = DB.exec(
             <<-SQL
-            INSERT INTO posts (author, title, body)
-            VALUES ('#{opts["author"]}', '#{opts["title"]}', '#{opts["body"]}', )
-            RETURNING id, author, title, body
+            INSERT INTO posts(author, title, body)
+            VALUES ('#{opts["author"]}', '#{opts["title"]}', '#{opts["body"]}')
+            RETURNING *;
             SQL
         )
         return {
