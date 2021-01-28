@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 2021_01_28_175405) do
     t.string "author"
     t.string "title"
     t.string "body"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
   end
 
 end
