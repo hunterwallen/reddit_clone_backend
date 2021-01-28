@@ -1,6 +1,6 @@
 class Post 
-    DB = PG.connect({host: '', port: 5432, dbname: 'reddit_development', password: 'hello'})
-    
+    DB = PG.connect({host: 'localhost', port: 5432, dbname: 'reddit_development'})
+    #dont forget to add password and turn local host to empty string Evan 
     def self.all
         results = DB.exec("SELECT * FROM posts;")
         return results.each do |result|
