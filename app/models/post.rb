@@ -1,5 +1,5 @@
 class Post 
-    DB = PG.connect({host: 'localhost', port: 5432, dbname: 'reddit_development'})
+    DB = PG.connect({host: 'localhost', port: 5432, dbname: 'reddit_development', })
     #dont forget to add password and turn local host to empty string Evan 
     def self.all
         results = DB.exec("SELECT * FROM posts;")
@@ -27,7 +27,7 @@ class Post
     def self.create(opts)
         results = DB.exec(
             <<-SQL
-                    INSERT INTO posts (title, body, user)
+                    INSERT INTO posts (user, title, body)
                     VALUES ('#{opts["user"]}', '#{opts["title"]}', '#{opts["body"]}')
                     RETURNING id, title, body, user
             SQL
