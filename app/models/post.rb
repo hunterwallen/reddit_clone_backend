@@ -1,8 +1,6 @@
-
 class Post
     DB = PG.connect({host: '', port: 5432, dbname: 'reddit_development', password: 'hello'})
     #dont forget to add password and turn local host to empty string Evan
-
     def self.all
         results = DB.exec("SELECT * FROM posts;")
         return results.each do |result|
@@ -29,9 +27,9 @@ class Post
     def self.create(opts)
         results = DB.exec(
             <<-SQL
-            INSERT INTO posts (author, title, body)
-            VALUES "testing", '#{opts["title"]}', '#{opts["body"]}'
-            RETURNING id, author, title, body
+            INSERT INTO posts(author, title, body)
+            VALUES ('#{opts["author"]}', '#{opts["title"]}', '#{opts["body"]}')
+            RETURNING *;
             SQL
         )
         return {
