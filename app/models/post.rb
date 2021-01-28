@@ -1,12 +1,14 @@
-class Post 
+
+class Post
     DB = PG.connect({host: '', port: 5432, dbname: 'reddit_development', password: 'hello'})
-    #dont forget to add password and turn local host to empty string Evan 
+    #dont forget to add password and turn local host to empty string Evan
+
     def self.all
         results = DB.exec("SELECT * FROM posts;")
         return results.each do |result|
             {
                 "id" => result["id"].to_i,
-                "user" => result["user"],
+                "author" => result["author"],
                 "title" => result["title"],
                 "body" => result["body"]
             }
@@ -15,10 +17,10 @@ class Post
 
     def self.find(id)
         results = DB.exec("SELECT * FROM posts WHERE id=#{id};")
-        return 
-        { 
+        return
+        {
             "id" => results.first["id"].to_i,
-            "user" => results.first["user"],
+            "author" => results.first["author"],
             "title" => results.first["title"],
             "body" => results.first["body"]
         }
@@ -27,16 +29,16 @@ class Post
     def self.create(opts)
         results = DB.exec(
             <<-SQL
-                    INSERT INTO posts (user, title, body)
-                    VALUES ('#{opts["user"]}', '#{opts["title"]}', '#{opts["body"]}')
-                    RETURNING id, user, title, body;
+            INSERT INTO posts (author, title, body)
+            VALUES "testing", '#{opts["title"]}', '#{opts["body"]}'
+            RETURNING id, author, title, body
             SQL
         )
         return {
             "id" => results.first["id"].to_i,
-            "user" => results.first["user"],
+            "author" => results.first["author"],
             "title" => results.first["title"],
-            "body" => results.first["body"]       
+            "body" => results.first["body"]
         }
     end
 
@@ -49,18 +51,18 @@ class Post
         results = DB.exec(
             <<-SQL
                 UPDATE posts
-                SET user='#{opts["user"]}', title='#{opts["title"]}', body='#{opts["body"]}'
+                SET author='#{opts["author"]}', title='#{opts["title"]}', body='#{opts["body"]}'
                 WHERE id=#{id}
-                RETURNING id, user, title, body;
+                RETURNING id, author, title, body;
             SQL
         )
         return{
             "id" => results.first["id"].to_i,
-            "user" => results.first["user"],
+            "author" => results.first["author"],
             "title" => results.first["title"],
-            "body" => results.first["body"]    
+            "body" => results.first["body"]
         }
-        
+
     end
 
 end
