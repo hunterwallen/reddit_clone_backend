@@ -1,6 +1,6 @@
-class Post 
+class Post
     DB = PG.connect({host: 'localhost', port: 5432, dbname: 'reddit_development'})
-    #dont forget to add password and turn local host to empty string Evan 
+    #dont forget to add password and turn local host to empty string Evan
     def self.all
         results = DB.exec("SELECT * FROM posts;")
         return results.each do |result|
@@ -15,8 +15,8 @@ class Post
 
     def self.find(id)
         results = DB.exec("SELECT * FROM posts WHERE id=#{id};")
-        return 
-        { 
+        return
+        {
             "id" => results.first["id"].to_i,
             "user" => results.first["user"],
             "title" => results.first["title"],
@@ -28,7 +28,7 @@ class Post
         results = DB.exec(
             <<-SQL
                     INSERT INTO posts (title, body, user)
-                    VALUES ('#{opts["user"]}', '#{opts["title"]}', '#{opts["body"]}')
+                    VALUES ('#{opts["title"]}', '#{opts["user"]}', '#{opts["body"]}')
                     RETURNING id, title, body, user
             SQL
         )
@@ -36,7 +36,7 @@ class Post
             "id" => results.first["id"].to_i,
             "user" => results.first["user"],
             "title" => results.first["title"],
-            "body" => results.first["body"]       
+            "body" => results.first["body"]
         }
     end
 
@@ -58,9 +58,9 @@ class Post
             "id" => results.first["id"].to_i,
             "user" => results.first["user"],
             "title" => results.first["title"],
-            "body" => results.first["body"]    
+            "body" => results.first["body"]
         }
-        
+
     end
 
 end
