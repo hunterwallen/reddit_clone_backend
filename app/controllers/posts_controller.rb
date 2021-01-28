@@ -19,4 +19,6 @@ class PostsController < ApplicationController
   def delete
     render json: Post.delete(params["id"])
   end
+
+  
 end

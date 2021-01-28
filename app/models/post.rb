@@ -6,7 +6,7 @@ class Post
         return results.each do |result|
             {
                 "id" => result["id"].to_i,
-                "user" => result["user"],
+                "author" => result["author"],
                 "title" => result["title"],
                 "body" => result["body"]
             }
@@ -18,7 +18,7 @@ class Post
         return
         {
             "id" => results.first["id"].to_i,
-            "user" => results.first["user"],
+            "author" => results.first["author"],
             "title" => results.first["title"],
             "body" => results.first["body"]
         }
@@ -27,14 +27,14 @@ class Post
     def self.create(opts)
         results = DB.exec(
             <<-SQL
-                    INSERT INTO posts (title, body, user)
-                    VALUES ('#{opts["title"]}', '#{opts["user"]}', '#{opts["body"]}')
-                    RETURNING id, title, body, user
+            INSERT INTO posts (author, title, body)
+            VALUES ('#{opts["author"]}', '#{opts["title"]}', '#{opts["body"]}', )
+            RETURNING id, author, title, body
             SQL
         )
         return {
             "id" => results.first["id"].to_i,
-            "user" => results.first["user"],
+            "author" => results.first["author"],
             "title" => results.first["title"],
             "body" => results.first["body"]
         }
@@ -49,14 +49,14 @@ class Post
         results = DB.exec(
             <<-SQL
                 UPDATE posts
-                SET user='#{opts["user"]}', title='#{opts["title"]}', body='#{opts["body"]}'
+                SET author='#{opts["author"]}', title='#{opts["title"]}', body='#{opts["body"]}'
                 WHERE id=#{id}
-                RETURNING id, user, title, body;
+                RETURNING id, author, title, body;
             SQL
         )
         return{
             "id" => results.first["id"].to_i,
-            "user" => results.first["user"],
+            "author" => results.first["author"],
             "title" => results.first["title"],
             "body" => results.first["body"]
         }
