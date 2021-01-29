@@ -1,28 +1,16 @@
 class Post < ApplicationRecord
-    DB = PG.connect({host: '', port: 5432, dbname: 'reddit_development', password: 'hello'})
-    #dont forget to add password and turn local host to empty string Evan
- 
-    def self.create(opts)
-        results = DB.exec(
-            <<-SQL
-            INSERT INTO posts(author, title, body)
-            VALUES ('#{opts["author"]}', '#{opts["title"]}', '#{opts["body"]}')
-            RETURNING *;
-            SQL
-        )
-        return {
-            "id" => results.first["id"].to_i,
-            "author" => results.first["author"],
-            "title" => results.first["title"],
-            "body" => results.first["body"]
-        }
+
+      if ENV["DATABASE_URL"]
+    PG.connect(ENV['DATABASE_URL'])
+    elsif
+    DB = PG.connect({:host => "", :port => 5432, :dbname => 'contacts_development', password: 'hello'})
     end
 
     def self.delete(id)
         results = DB.exec("DELETE FROM posts WHERE id=#{id}")
         return {"deleted" => true}
     end
-
+    #
     def self.update(id, opts)
         results = DB.exec(
             <<-SQL
