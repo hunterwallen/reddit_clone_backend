@@ -71,6 +71,7 @@ class Post < ApplicationRecord
           "body" => results.first["body"]
       }
     end
+    
 
     def self.delete(id)
         results = DB.exec("DELETE FROM posts WHERE id=#{id}")
