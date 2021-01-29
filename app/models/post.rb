@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+<<<<<<< HEAD
     if ENV["DATABASE_URL"]
       PG.connect(ENV['DATABASE_URL'])
     elsif
@@ -7,6 +8,14 @@ class Post < ApplicationRecord
 =======
       DB = PG.connect({:host => "localhost", :port => 5432, :dbname => 'reddit_development'})
     end
+=======
+  if(ENV['DATABASE_URL'])
+    uri = URI.parse(ENV['DATABASE_URL'])
+    DB = PG.connect(uri.hostname, uri.port, nil, nil, uri.path[1..-1], uri.user, uri.password)
+  else
+    DB = PG.connect(host: "localhost", port: 5432, dbname: 'reddit_development')
+  end
+>>>>>>> c51044aa2caab46fd0c17c4c11b029eed67aec66
 
     def self.all
       results = DB.exec("SELECT * FROM posts;")
