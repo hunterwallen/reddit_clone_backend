@@ -21,11 +21,11 @@ Rails.application.routes.draw do
 
 
 
-  # get '/accounts', to: 'accounts#index'
+  get '/accounts', to: 'accounts#index'
 
   # get '/accounts/:id', to: 'accounts#show'
 
-  # post '/accounts', to: 'accounts#create'
+  post '/accounts', to: 'accounts#create'
 
   # put '/accounts/:id', to: 'accounts#update'
 
