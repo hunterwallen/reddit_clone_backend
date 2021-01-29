@@ -1,4 +1,7 @@
+require 'bcrypt'
+
 class Account < ActiveRecord::Base
+    include BCrypt
 
     DB = PG.connect({host: '', port: 5432, dbname: 'reddit_development', password: 'hello'})
 
@@ -18,17 +21,17 @@ class Account < ActiveRecord::Base
     end
 
      def self.create(opts)
+       new_password = BCrypt::Password.create(opts["password"])
     results = DB.exec(
         <<-SQL
             INSERT INTO accounts (user_name, password, email)
-            VALUES ( '#{opts["user_name"]}', '#{opts["password"]}', '#{opts["email"]}' )
-            RETURNING user_id, user_name, password, email;
+            VALUES ( '#{opts["user_name"]}', '#{new_password}', '#{opts["email"]}' )
+            RETURNING user_id, user_name, email;
         SQL
     )
     return {
         "user_id" => results.first["id"].to_i,
         "user_name" => results.first["user_name"],
-        "password" => results.first["password"],
         "email" => results.first["email"]
     }
   end
