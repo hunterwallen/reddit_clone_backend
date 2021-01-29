@@ -3,7 +3,7 @@ class Post < ApplicationRecord
     if ENV["DATABASE_URL"]
       PG.connect(ENV['DATABASE_URL'])
     elsif
-      DB = PG.connect({:host => "", :port => 5432, :dbname => 'reddit_development', password: 'hello'})
+      DB = PG.connect({:host => "localhost", :port => 5432, :dbname => 'reddit_development'})
     end
 
 
@@ -73,7 +73,7 @@ class Post < ApplicationRecord
       }
 
     end
-    
+
 
     def self.delete(id)
         results = DB.exec("DELETE FROM posts WHERE id=#{id}")
