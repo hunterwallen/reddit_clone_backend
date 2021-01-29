@@ -3,7 +3,11 @@ require 'bcrypt'
 class Account < ActiveRecord::Base
     include BCrypt
 
-    DB = PG.connect({host: '', port: 5432, dbname: 'reddit_development', password: 'hello'})
+    if ENV["DATABASE_URL"]
+      PG.connect(ENV['DATABASE_URL'])
+    elsif
+      DB = PG.connect({:host => "localhost:3000", :port => 5432, :dbname => 'reddit_development'})
+    end
 
     def self.all
         results = DB.exec("SELECT * FROM accounts;")
