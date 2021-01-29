@@ -1,29 +1,7 @@
-class Post
+class Post < ApplicationRecord
     DB = PG.connect({host: '', port: 5432, dbname: 'reddit_development', password: 'hello'})
     #dont forget to add password and turn local host to empty string Evan
-    def self.all
-        results = DB.exec("SELECT * FROM posts;")
-        return results.each do |result|
-            {
-                "id" => result["id"].to_i,
-                "author" => result["author"],
-                "title" => result["title"],
-                "body" => result["body"]
-            }
-        end
-    end
-
-    def self.find(id)
-        results = DB.exec("SELECT * FROM posts WHERE id=#{id};")
-        return
-        {
-            "id" => results.first["id"].to_i,
-            "author" => results.first["author"],
-            "title" => results.first["title"],
-            "body" => results.first["body"]
-        }
-    end
-
+ 
     def self.create(opts)
         results = DB.exec(
             <<-SQL
