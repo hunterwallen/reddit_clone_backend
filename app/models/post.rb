@@ -1,7 +1,9 @@
 class Post < ApplicationRecord
-
+    if ENV["DATABASE_URL"]
+      PG.connect(ENV['DATABASE_URL'])
+    elsif
       DB = PG.connect({:host => "localhost", :port => 5432, :dbname => 'reddit_development'})
-
+    end
 
     def self.all
       results = DB.exec("SELECT * FROM posts;")
