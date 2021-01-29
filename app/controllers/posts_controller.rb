@@ -20,5 +20,8 @@ class PostsController < ApplicationController
     render json: Post.delete(params["id"])
   end
 
-  
+  def create_many
+    render json: Post.create_many(params["post"])
+  end
+
 end
