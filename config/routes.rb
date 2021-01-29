@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get '/posts', to: 'posts#index'
+  get '/', to: 'posts#index'
 
   get '/posts/:id', to: 'posts#show'
 
@@ -11,10 +11,6 @@ Rails.application.routes.draw do
   delete '/posts/:id', to: 'posts#delete'
 
   post '/postsseed', to: 'posts#create_many'
-
-
-
-
 
 
 
