@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get '/posts', to: 'posts#index'
+  get '/', to: 'posts#index'
 
   get '/posts/:id', to: 'posts#show'
 
@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
 
 
-  
+
 
   get '/accounts', to: 'accounts#index'
 
