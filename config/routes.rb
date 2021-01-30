@@ -28,11 +28,9 @@ Rails.application.routes.draw do
 
   get '/subreddits', to: 'subreddits#index'
 
-  get '/subreddits/login', to: 'subreddits#show'
+  get '/subreddits/:id', to: 'subreddits#show'
 
   post '/subreddits', to: 'subreddits#create'
-
-  put '/subreddits/:id', to: 'subreddits#update'
 
   delete '/subreddits/:id', to: 'subreddits#delete'
 
