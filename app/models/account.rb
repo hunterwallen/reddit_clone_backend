@@ -14,9 +14,8 @@ class Account < ActiveRecord::Base
         results = DB.exec("SELECT * FROM accounts;")
         return results.each do |result|
         {
-            "user_id" => result["user_id"].to_i,
+            "user_id" => result["id"].to_i,
             "user_name" => result["user_name"],
-            "password" => result["password"],
             "email" => result["email"],
             "post_id" => result["post_id"],
             "sub_reddit_id" => result["sub_reddit_id"],
@@ -25,6 +24,24 @@ class Account < ActiveRecord::Base
         end
     end
 
+
+    def self.find(login_details)
+      this_email = login_details["email"]
+        results = DB.exec("SELECT * FROM accounts WHERE email LIKE '#{this_email}';")
+        pass = BCrypt::Password.new(results.first["password"])
+        input_pass = "#{login_details["password"]}"
+        if pass == input_pass
+            {
+                "user_id" => results.first["id"].to_i,
+                "username" => results.first["user_name"],
+                "post_id" => results.first["title"],
+                "sub_reddit_id" => results.first["sub_reddit_id"],
+                "post_reaction_id" => results.first["post_reaction_id"]
+            }
+          else
+            {}
+          end
+    end
 
 
      def self.create(opts)

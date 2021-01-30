@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   get '/accounts', to: 'accounts#index'
 
-  get '/accounts/:id', to: 'accounts#show'
+  get '/accounts/login', to: 'accounts#show'
 
   post '/accounts', to: 'accounts#create'
 
