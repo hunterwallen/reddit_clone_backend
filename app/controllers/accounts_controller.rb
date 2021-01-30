@@ -5,7 +5,7 @@ class AccountsController < ApplicationController
   end
 
   def show
-    render json: Account.find(params["id"])
+    render json: Account.find(params["account"])
   end
 
   def create
@@ -19,5 +19,10 @@ class AccountsController < ApplicationController
   def delete
     render json: Account.delete(params["id"])
   end
+
+
+
+
+
 
 end
