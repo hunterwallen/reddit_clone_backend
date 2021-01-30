@@ -35,7 +35,7 @@ class Post < ApplicationRecord
         results = DB.exec(
             <<-SQL
             INSERT INTO posts(author, title, body)
-            VALUES ('#{opts[:author]}', '#{opts[:title]}', '#{opts[:body]}', '#{opts[:user_id]}')
+            VALUES ('#{opts[:author]}', '#{opts[:title]}', '#{opts[:body]}', #{opts[:user_id]})
             RETURNING *;
             SQL
         )
