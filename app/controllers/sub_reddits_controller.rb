@@ -1,4 +1,4 @@
-class ActionController < ApplicationController
+class Sub_redditsController < ApplicationController
   def index
     render json: Sub_Reddit.all
   end
