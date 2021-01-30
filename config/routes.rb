@@ -26,7 +26,17 @@ Rails.application.routes.draw do
   delete '/accounts/:id', to: 'accounts#delete'
 
 
+  get '/subreddits', to: 'subreddits#index'
+
+  get '/subreddits/login', to: 'subreddits#show'
+
+  post '/subreddits', to: 'subreddits#create'
+
+  put '/subreddits/:id', to: 'subreddits#update'
+
+  delete '/subreddits/:id', to: 'subreddits#delete'
 
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+
 end

@@ -30,15 +30,16 @@ class Account < ActiveRecord::Base
         results = DB.exec("SELECT * FROM accounts WHERE email LIKE '#{this_email}';")
         pass = BCrypt::Password.new(results.first["password"])
         input_pass = "#{login_details["password"]}"
+        p pass == input_pass
         if pass == input_pass
-            {
-                "user_id" => results.first["id"].to_i,
-                "username" => results.first["user_name"],
-                "post_id" => results.first["title"],
-                "sub_reddit_id" => results.first["sub_reddit_id"],
-                "post_reaction_id" => results.first["post_reaction_id"]
+          {"user_id" => results.first["user_id"].to_i,
+            "username" => results.first["user_name"],
+            "post_id" => results.first["title"],
+            "sub_reddit_id" => results.first["sub_reddit_id"],
+            "post_reaction_id" => results.first["post_reaction_id"]
             }
           else
+            p "no pass"
             {}
           end
     end

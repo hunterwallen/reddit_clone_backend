@@ -1,0 +1,38 @@
+class Subreddit < ApplicationRecord
+    
+       if(ENV['DATABASE_URL'])
+    uri = URI.parse(ENV['DATABASE_URL'])
+    DB = PG.connect(uri.hostname, uri.port, nil, nil, uri.path[1..-1], uri.user, uri.password)
+  else
+    DB = PG.connect(host: "", port: 5432, dbname: 'reddit_development', password: 'hello')
+  end
+
+  def self.all
+    results = DB.exec("SELECT * FROM sub_reddit;")
+    return results.each do |result|
+        {
+            "sub_reddit_id" => result["sub_reddit_id"].to_i,
+            "post_id" => result["post_id"],
+            "user_id" => result["user_id"],
+            "public" => result["public"],
+            "created_by" => result["created_by"].to_i,
+        }
+    end
+  end
+
+  def self.create(opts)
+    results = DB.exec(
+        <<-SQL
+        INSERT INTO sub_reddit(public, created_by, name, description)
+        VALUES ( #{opts["public"]}, #{opts["created_by"]}, '#{opts["name"]}', '#{opts["description"]}')
+        RETURNING public, created_by, name, description
+        SQL
+    )
+      
+  end
+
+
+
+
+
+end
