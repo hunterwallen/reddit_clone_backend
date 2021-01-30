@@ -25,6 +25,8 @@ class Account < ActiveRecord::Base
         end
     end
 
+
+
      def self.create(opts)
        new_password = BCrypt::Password.create(opts["password"])
     results = DB.exec(
