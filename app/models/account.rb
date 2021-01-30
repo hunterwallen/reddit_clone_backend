@@ -61,13 +61,27 @@ class Account < ActiveRecord::Base
     }
   end
 
+  def self.delete(id)
+    results = DB.exec("DELETE FROM accounts WHERE id=#{id}")
+    return {"deleted" => true}
+  end
 
-
-
-
-
-
-
+  def self.update(id, opts)
+    results = DB.exec(
+      <<-SQL
+        UPDATE accounts
+        SET user_name='#{opts["user_name"]}', email='#{opts["email"]}'
+        WHERE id=#{id}
+        RETURNING (user_id, user_name, email)
+      SQL
+    )
+    return{
+      "user_id" => results.first["user_id"].to_i,
+      "user_name" => results.first["user_name"],
+      "email" => results.first["email"]
+     }
+    
+  end
 
 
 end
