@@ -1,15 +1,14 @@
 require 'bcrypt'
+
 class Account < ActiveRecord::Base
     include BCrypt
 
-
     if(ENV['DATABASE_URL'])
-    uri = URI.parse(ENV['DATABASE_URL'])
-    DB = PG.connect(uri.hostname, uri.port, nil, nil, uri.path[1..-1], uri.user, uri.password)
+      uri = URI.parse(ENV['DATABASE_URL'])
+      DB = PG.connect(uri.hostname, uri.port, nil, nil, uri.path[1..-1], uri.user, uri.password)
     else
-    DB = PG.connect(host: "localhost", port: 5432, dbname: 'reddit_development')
+      DB = PG.connect(host: "localhost", port: 5432, dbname: 'reddit_development')
     end
-
 
     def self.all
         results = DB.exec("SELECT * FROM accounts;")
@@ -25,6 +24,7 @@ class Account < ActiveRecord::Base
         }
         end
     end
+
      def self.create(opts)
        new_password = BCrypt::Password.create(opts["password"])
     results = DB.exec(
@@ -40,4 +40,14 @@ class Account < ActiveRecord::Base
         "email" => results.first["email"]
     }
   end
+
+
+
+
+
+
+
+
+
+
 end
