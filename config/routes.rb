@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get '/', to: 'posts#index'
+  get '/posts', to: 'posts#index'
 
   get '/posts/:id', to: 'posts#show'
 
@@ -15,12 +15,6 @@ Rails.application.routes.draw do
 
 
 
-
-
-
-
-
-
   get '/accounts', to: 'accounts#index'
 
   get '/accounts/:id', to: 'accounts#show'
@@ -30,6 +24,8 @@ Rails.application.routes.draw do
   put '/accounts/:id', to: 'accounts#update'
 
   delete '/accounts/:id', to: 'accounts#delete'
+
+
 
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
