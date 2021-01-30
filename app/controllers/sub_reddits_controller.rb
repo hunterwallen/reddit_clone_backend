@@ -17,4 +17,5 @@ class ActionController < ApplicationController
 
   def delete
     render json: Sub_Reddit.delete(params["id"])
+  end
 end
