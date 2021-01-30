@@ -20,6 +20,21 @@ class Subreddit < ApplicationRecord
     end
   end
 
+  def self.find(id)
+    results = DB.exec("SELECT * FROM sub_reddit WHERE sub_reddit_id=#{id}")
+    return 
+            {
+            "sub_reddit_id" => results.first["sub_reddit_id"].to_i,
+            "post_id" => results.first["post_id"],
+            "user_id" => results.first["user_id"],
+            "public" => results.first["public"],
+            "created_by" => results.first["created_by"].to_i,
+            "name" => results.first["name"],
+            "description" => results.first["description"]
+        }
+    
+  end
+
   def self.create(opts)
     results = DB.exec(
         <<-SQL
@@ -28,11 +43,21 @@ class Subreddit < ApplicationRecord
         RETURNING public, created_by, name, description
         SQL
     )
-      
+    return 
+        {
+            "sub_reddit_id" => results.first["sub_reddit_id"].to_i,
+            "public" => results.first["public"],
+            "created_by" => results.first["created_by"].to_i,
+            "name" => results.first["name"],
+            "description" => results.first["description"]
+        }
   end
 
 
-
+  def self.delete(id)
+    results = DB.exec("DELETE FROM sub_reddit WHERE sub_reddit_id=#{id}")
+    return {"deleted" => true}
+  end
 
 
 end
