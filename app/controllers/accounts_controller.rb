@@ -20,9 +20,4 @@ class AccountsController < ApplicationController
     render json: Account.delete(params["id"])
   end
 
-
-
-
-
-
 end

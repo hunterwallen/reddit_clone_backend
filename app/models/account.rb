@@ -20,10 +20,6 @@ class Account < ActiveRecord::Base
         end
     end
 
-    def method_name
-        
-    end
-
      def self.create(opts)
        new_password = BCrypt::Password.create(opts["password"])
     results = DB.exec(
@@ -39,14 +35,6 @@ class Account < ActiveRecord::Base
         "email" => results.first["email"]
     }
   end
-
-
-
-
-
-
-
-
 
 
 end
