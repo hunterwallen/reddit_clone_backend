@@ -61,7 +61,7 @@ class Account < ActiveRecord::Base
   end
 
   def self.delete(id)
-    results = DB.exec("DELETE FROM accounts WHERE id=#{id}")
+    results = DB.exec("DELETE FROM accounts WHERE user_id=#{id}")
     return {"deleted" => true}
   end
 
@@ -70,8 +70,8 @@ class Account < ActiveRecord::Base
       <<-SQL
         UPDATE accounts
         SET user_name='#{opts["user_name"]}', email='#{opts["email"]}'
-        WHERE id=#{id}
-        RETURNING (user_id, user_name, email)
+        WHERE user_id=#{id}
+        RETURNING user_id, user_name, email;
       SQL
     )
     return{
