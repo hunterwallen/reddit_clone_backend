@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   post '/subreddits', to: 'subreddits#create'
 
-  put '/followsub', to: 'subreddits#follow'
+  put '/followsub', to: 'subreddits#followsub'
 
   delete '/subreddits/:id', to: 'subreddits#delete'
 
