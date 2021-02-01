@@ -64,7 +64,7 @@ class Subreddit < ApplicationRecord
       results = DB.exec(
           <<-SQL
               UPDATE subreddits
-              SET user_id = user_id || '#{ids["user_id"]}'
+              SET user_id = array_append(user_id, '#{ids["user_id"]}')
               WHERE sub_reddit_id=#{ids["sub_reddit_id"]}
           SQL
       )
