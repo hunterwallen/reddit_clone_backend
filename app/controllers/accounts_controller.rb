@@ -21,7 +21,7 @@ class AccountsController < ApplicationController
   end
 
   def addsub
-    render json: Account.addsub(params["id"], params["subreddit_id"])
+    render json: Account.addsub(params["account"])
   end
 
 

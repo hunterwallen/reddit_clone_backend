@@ -61,12 +61,12 @@ class Account < ActiveRecord::Base
     }
   end
 
-  def self.addsub(thisuser_id, subreddit_id)
+  def self.addsub(account)
       results = DB.exec(
           <<-SQL
               UPDATE accounts
-              SET sub_reddit_id = sub_reddit_id || '#{subreddit_id}'
-              WHERE id=#{thisuser_id}
+              SET sub_reddit_id = array_append(sub_reddit_id, '#{account["sub_reddit_id"]}')
+              WHERE id=#{account["user_id"]}
           SQL
       )
       p "Subreddit added to user"
