@@ -34,8 +34,8 @@ class Post < ApplicationRecord
     def self.create(opts)
         results = DB.exec(
             <<-SQL
-            INSERT INTO posts(author, title, body)
-            VALUES ('#{opts[:author]}', '#{opts[:title]}', '#{opts[:body]}', #{opts[:user_id]})
+            INSERT INTO posts(author, title, body, user_id, subreddit_id)
+            VALUES ('#{opts[:author]}', '#{opts[:title]}', '#{opts[:body]}', #{opts[:user_id]}, #{opts[:subreddit_id]})
             RETURNING *;
             SQL
         )
