@@ -38,7 +38,8 @@ class Post < ApplicationRecord
             VALUES ('#{opts[:author]}', '#{opts[:title]}', '#{opts[:body]}', #{opts[:user_id]}, #{opts[:subreddit_id]})
             RETURNING *;
             SQL
-
+        )
+        results2 = DB.exec(
             <<-SQL
                 UPDATE sub_reddit
                 SET post_id = array_append(post_id, '#{results.first["id"]}')
