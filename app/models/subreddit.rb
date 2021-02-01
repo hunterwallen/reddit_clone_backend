@@ -60,12 +60,12 @@ class Subreddit < ApplicationRecord
   end
 
 
-  def self.followsub(subreddit_id, follower_id)
+  def self.followsub(sub_reddit_id, user_id)
       results = DB.exec(
           <<-SQL
               UPDATE subreddits
-              SET user_id = user_id || '#{follower_id}'
-              WHERE id=#{id}
+              SET user_id = user_id || '#{user_id}'
+              WHERE sub_reddit_id=#{sub_reddit_id}
           SQL
       )
       p "User added to subreddit"
