@@ -24,6 +24,9 @@ class SubredditsController < ApplicationController
     render json: Subreddit.followsub(params["subreddit"])
   end
 
+  def unfollowsub
+    render json: Subreddit.unfollowsub(params["subreddit"])
+  end
 
 
 

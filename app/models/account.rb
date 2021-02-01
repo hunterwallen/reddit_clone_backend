@@ -73,6 +73,18 @@ class Account < ActiveRecord::Base
 
   end
 
+  def self.leavesub(account)
+    results = DB.exec(
+        <<-SQL
+            UPDATE accounts
+            SET sub_reddit_id = array_remove(sub_reddit_id, '#{account["sub_reddit_id"]}')
+            WHERE user_id=#{account["user_id"]}
+        SQL
+    )
+    p "Subreddit left by user"
+
+  end
+
 
 
 

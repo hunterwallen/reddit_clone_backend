@@ -73,4 +73,16 @@ class Subreddit < ApplicationRecord
   end
 
 
+  def self.unfollowsub(ids)
+      results = DB.exec(
+          <<-SQL
+              UPDATE sub_reddit
+              SET user_id = array_remove(user_id, '#{ids["user_id"]}')
+              WHERE sub_reddit_id=#{ids["sub_reddit_id"]}
+          SQL
+      )
+      p "User removed from subreddit"
+
+  end
+
 end
