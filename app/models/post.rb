@@ -43,7 +43,9 @@ class Post < ApplicationRecord
             "id" => results.first["id"].to_i,
             "author" => results.first["author"],
             "title" => results.first["title"],
-            "body" => results.first["body"]
+            "body" => results.first["body"],
+            "user_id" => results.first["body"],
+            "subreddit_id" => results.first["subreddit_id"].to_i
         }
     end
 
