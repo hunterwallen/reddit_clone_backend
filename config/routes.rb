@@ -42,7 +42,7 @@ Rails.application.routes.draw do
 
   delete '/subreddits/:id', to: 'subreddits#delete'
 
-  put '/subreddits/:id', to: 'subreddits#addpost'
+  put '/subreddits', to: 'subreddits#addpost'
 
 
 

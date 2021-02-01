@@ -29,7 +29,7 @@ class SubredditsController < ApplicationController
   end
 
   def addpost
-    render json: Subreddit.addpost(params["id"], params["request"])
+    render json: Subreddit.addpost(params["request"])
   end
 
 
