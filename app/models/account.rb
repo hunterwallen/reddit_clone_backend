@@ -66,7 +66,7 @@ class Account < ActiveRecord::Base
           <<-SQL
               UPDATE accounts
               SET sub_reddit_id = array_append(sub_reddit_id, '#{account["sub_reddit_id"]}')
-              WHERE id=#{account["user_id"]}
+              WHERE user_id=#{account["user_id"]}
           SQL
       )
       p "Subreddit added to user"

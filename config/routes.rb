@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   put '/accounts/:id', to: 'accounts#update'
 
-  put '/accounts/addsub', to:'accounts#addsub'
+  put '/addsub', to:'accounts#addsub'
 
   delete '/accounts/:id', to: 'accounts#delete'
 
