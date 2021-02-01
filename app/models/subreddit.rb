@@ -95,7 +95,7 @@ class Subreddit < ApplicationRecord
             WHERE sub_reddit_id=#{request["subreddit_id"]}
         SQL
     )
-
+    p "works"
   end
 
 end
