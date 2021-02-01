@@ -61,27 +61,23 @@ class Account < ActiveRecord::Base
     }
   end
 
-  def self.delete(id)
-    results = DB.exec("DELETE FROM accounts WHERE user_id=#{id}")
-    return {"deleted" => true}
+  def self.addsub(thisuser_id, subreddit_id)
+      results = DB.exec(
+          <<-SQL
+              UPDATE accounts
+              SET sub_reddit_id = sub_reddit_id || '#{subreddit_id}'
+              WHERE id=#{thisuser_id}
+          SQL
+      )
+      p "Subreddit added to user"
+
   end
 
-  def self.update(id, opts)
-    results = DB.exec(
-      <<-SQL
-        UPDATE accounts
-        SET user_name='#{opts["user_name"]}', email='#{opts["email"]}'
-        WHERE user_id=#{id}
-        RETURNING user_id, user_name, email;
-      SQL
-    )
-    return{
-      "user_id" => results.first["user_id"].to_i,
-      "user_name" => results.first["user_name"],
-      "email" => results.first["email"]
-     }
-    
-  end
+
+
+
+
+
 
 
 end

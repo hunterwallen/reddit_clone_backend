@@ -1,5 +1,5 @@
 class Subreddit < ApplicationRecord
-    
+
        if(ENV['DATABASE_URL'])
     uri = URI.parse(ENV['DATABASE_URL'])
     DB = PG.connect(uri.hostname, uri.port, nil, nil, uri.path[1..-1], uri.user, uri.password)
@@ -22,7 +22,7 @@ class Subreddit < ApplicationRecord
 
   def self.find(id)
     results = DB.exec("SELECT * FROM sub_reddit WHERE sub_reddit_id=#{id}")
-    return 
+    return
             {
             "sub_reddit_id" => results.first["sub_reddit_id"].to_i,
             "post_id" => results.first["post_id"],
@@ -32,7 +32,7 @@ class Subreddit < ApplicationRecord
             "name" => results.first["name"],
             "description" => results.first["description"]
         }
-    
+
   end
 
   def self.create(opts)
@@ -43,7 +43,7 @@ class Subreddit < ApplicationRecord
         RETURNING public, created_by, name, description
         SQL
     )
-    return 
+    return
         {
             "sub_reddit_id" => results.first["sub_reddit_id"].to_i,
             "public" => results.first["public"],
@@ -57,6 +57,19 @@ class Subreddit < ApplicationRecord
   def self.delete(id)
     results = DB.exec("DELETE FROM sub_reddit WHERE sub_reddit_id=#{id}")
     return {"deleted" => true}
+  end
+
+
+  def self.followsub(subreddit_id, follower_id)
+      results = DB.exec(
+          <<-SQL
+              UPDATE subreddits
+              SET user_id = user_id || '#{follower_id}'
+              WHERE id=#{id}
+          SQL
+      )
+      p "User added to subreddit"
+
   end
 
 

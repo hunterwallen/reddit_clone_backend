@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
   put '/accounts/:id', to: 'accounts#update'
 
+  put '/accounts/addsub', to:'accounts#addsub'
+
   delete '/accounts/:id', to: 'accounts#delete'
 
 
@@ -31,6 +33,8 @@ Rails.application.routes.draw do
   get '/subreddits/:id', to: 'subreddits#show'
 
   post '/subreddits', to: 'subreddits#create'
+
+  put '/followsub', to: 'subreddits#follow'
 
   delete '/subreddits/:id', to: 'subreddits#delete'
 

@@ -20,7 +20,9 @@ class AccountsController < ApplicationController
     render json: Account.delete(params["id"])
   end
 
-
+  def addsub
+    render json: Account.addsub(params["id"], params["subreddit_id"])
+  end
 
 
 
