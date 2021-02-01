@@ -21,7 +21,7 @@ class SubredditsController < ApplicationController
   end
 
   def followsub
-    render json: Subreddit.followsub(params["sub_reddit_id"], params["user_id"])
+    render json: Subreddit.followsub(params['ids'])
   end
 
 
