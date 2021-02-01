@@ -20,8 +20,13 @@ class SubredditsController < ApplicationController
     render json: Subreddit.delete(params["id"])
   end
 
+  def followsub
+    render json: Subreddit.followsub(params["subreddit"])
+  end
 
-
+  def unfollowsub
+    render json: Subreddit.unfollowsub(params["subreddit"])
+  end
 
 
 
