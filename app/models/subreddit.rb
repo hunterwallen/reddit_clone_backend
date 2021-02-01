@@ -63,7 +63,7 @@ class Subreddit < ApplicationRecord
   def self.followsub(ids)
       results = DB.exec(
           <<-SQL
-              UPDATE subreddits
+              UPDATE sub_reddit
               SET user_id = array_append(user_id, '#{ids["user_id"]}')
               WHERE sub_reddit_id=#{ids["sub_reddit_id"]}
           SQL
