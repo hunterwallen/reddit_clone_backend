@@ -42,7 +42,8 @@ class Post < ApplicationRecord
         results2 = DB.exec(
             <<-SQL
                 UPDATE sub_reddit
-                SET post_id = array_append(post_id, #{results.first["id"]})
+                SET post_id = array_append(post_id, '#{results.first["id"]}')
+                WHERE sub_reddit_id = #{opts[:subreddit_id]}
             SQL
         )
         return {
