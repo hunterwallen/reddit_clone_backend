@@ -85,4 +85,17 @@ class Subreddit < ApplicationRecord
 
   end
 
+
+  def self.addpost(subreddit)
+
+    results = DB.exec(
+        <<-SQL
+            UPDATE sub_reddit
+            SET post_id = array_append(post_id, '#{subreddit["post_id"]}')
+            WHERE sub_reddit_id=#{subreddit["subreddit_id"]}
+        SQL
+    )
+    p "works"
+  end
+
 end
