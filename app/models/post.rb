@@ -39,18 +39,13 @@ class Post < ApplicationRecord
             RETURNING *;
             SQL
         )
-        results2 = DB.exec(
-            <<-SQL
-                UPDATE sub_reddit
-                SET post_id = array_append(post_id, '#{results.first["id"]}')
-                WHERE sub_reddit_id = #{results.first[:subreddit_id]}
-            SQL
-        )
         return {
             "id" => results.first["id"].to_i,
             "author" => results.first["author"],
             "title" => results.first["title"],
-            "body" => results.first["body"]
+            "body" => results.first["body"],
+            "user_id" => results.first["body"],
+            "subreddit_id" => results.first["subreddit_id"].to_i
         }
     end
 

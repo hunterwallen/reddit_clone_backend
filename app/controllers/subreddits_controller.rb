@@ -28,6 +28,10 @@ class SubredditsController < ApplicationController
     render json: Subreddit.unfollowsub(params["subreddit"])
   end
 
+  def addpost
+    render json: Subreddit.addpost(params["id"], params["request"])
+  end
+
 
 
 end
