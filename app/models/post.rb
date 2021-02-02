@@ -113,7 +113,7 @@ class Post < ApplicationRecord
 
     end
 
-    def self.down(post_id)
+    def self.downvote(post_id)
       results = DB.exec(
           <<-SQL
               UPDATE posts
