@@ -15,7 +15,8 @@ class Post < ApplicationRecord
               "id" => result["id"].to_i,
               "author" => result["author"],
               "title" => result["title"],
-              "body" => result["body"]
+              "body" => result["body"],
+              "img_url" => result["img_url"]
           }
       end
     end
@@ -27,15 +28,16 @@ class Post < ApplicationRecord
             "id" => results.first["id"].to_i,
             "author" => results.first["author"],
             "title" => results.first["title"],
-            "body" => results.first["body"]
+            "body" => results.first["body"],
+            "img_url" => results.first["img_url"]
         }
     end
 
     def self.create(opts)
         results = DB.exec(
             <<-SQL
-            INSERT INTO posts(author, title, body, user_id, subreddit_id)
-            VALUES ('#{opts[:author]}', '#{opts[:title]}', '#{opts[:body]}', #{opts[:user_id]}, #{opts[:subreddit_id]})
+            INSERT INTO posts(author, title, body, user_id, subreddit_id, img_url)
+            VALUES ('#{opts[:author]}', '#{opts[:title]}', '#{opts[:body]}', #{opts[:user_id]}, #{opts[:subreddit_id]}, '#{opts[:img_url]}')
             RETURNING *;
             SQL
         )
@@ -45,7 +47,8 @@ class Post < ApplicationRecord
             "title" => results.first["title"],
             "body" => results.first["body"],
             "user_id" => results.first["body"],
-            "subreddit_id" => results.first["subreddit_id"].to_i
+            "subreddit_id" => results.first["subreddit_id"].to_i,
+            "img_url" => results.first["img_url"]
         }
     end
 
@@ -98,6 +101,30 @@ class Post < ApplicationRecord
             "title" => results.first["title"],
             "body" => results.first["body"]
         }
+
+    end
+
+    def self.upvote(post_id)
+      results = DB.exec(
+          <<-SQL
+              UPDATE posts
+              SET votes = votes + 1
+              WHERE id=#{post_id}
+          SQL
+      )
+      p "Post voted up by user"
+
+    end
+
+    def self.downvote(post_id)
+      results = DB.exec(
+          <<-SQL
+              UPDATE posts
+              SET votes = votes - 1
+              WHERE id=#{post_id}
+          SQL
+      )
+      p "Post voted down by user"
 
     end
 

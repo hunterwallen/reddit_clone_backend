@@ -24,4 +24,12 @@ class PostsController < ApplicationController
     render json: Post.create_many(params["post"])
   end
 
+  def upvote
+    render json: Post.upvote(params["post_id"])
+  end
+
+  def downvote
+    render json: Post.downvote(params["post_id"])
+  end
+
 end
