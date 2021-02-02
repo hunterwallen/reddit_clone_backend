@@ -101,4 +101,28 @@ class Post < ApplicationRecord
 
     end
 
+    def self.upvote(post)
+      results = DB.exec(
+          <<-SQL
+              UPDATE posts
+              SET votes = votes + 1
+              WHERE user_id=#{post["id"]}
+          SQL
+      )
+      p "Post voted up by user"
+
+    end
+
+    def self.down(post)
+      results = DB.exec(
+          <<-SQL
+              UPDATE posts
+              SET votes = votes - 1
+              WHERE user_id=#{post["id"]}
+          SQL
+      )
+      p "Post voted down by user"
+
+    end
+
 end

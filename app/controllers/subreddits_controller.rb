@@ -32,6 +32,6 @@ class SubredditsController < ApplicationController
     render json: Subreddit.addpost(params["subreddit"])
   end
 
-
+  
 
 end

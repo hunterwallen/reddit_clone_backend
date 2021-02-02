@@ -12,6 +12,10 @@ Rails.application.routes.draw do
 
   post '/postsseed', to: 'posts#create_many'
 
+  put '/upvote', to: 'posts#upvote'
+
+  put '/downvote', to: 'posts#downvote'
+
 
 
 
@@ -28,6 +32,9 @@ Rails.application.routes.draw do
   put '/leavesub', to:'accounts#leavesub'
 
   delete '/accounts/:id', to: 'accounts#delete'
+
+  put '/react', to: 'accounts#react'
+
 
 
   get '/subreddits', to: 'subreddits#index'

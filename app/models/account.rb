@@ -85,6 +85,18 @@ class Account < ActiveRecord::Base
 
   end
 
+  def self.react(account)
+    results = DB.exec(
+        <<-SQL
+            UPDATE accounts
+            SET post_reaction_id = array_append(post_reaction_id, '#{account["post_id"]}')
+            WHERE user_id=#{account["user_id"]}
+        SQL
+    )
+    p "Reacted to post"
+
+  end
+
 
 
 
