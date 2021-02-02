@@ -28,5 +28,9 @@ class AccountsController < ApplicationController
     render json: Account.leavesub(params["account"])
   end
 
+  def react
+    render json: Account.react(params["account"])
+  end
+
 
 end
