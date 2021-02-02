@@ -34,7 +34,7 @@ class Account < ActiveRecord::Base
         if pass == input_pass
           {"user_id" => results.first["user_id"].to_i,
             "username" => results.first["user_name"],
-            "post_id" => results.first["title"],
+            "post_id" => results.first["post_id"],
             "sub_reddit_id" => results.first["sub_reddit_id"],
             "post_reaction_id" => results.first["post_reaction_id"]
             }
@@ -91,9 +91,15 @@ class Account < ActiveRecord::Base
             UPDATE accounts
             SET post_reaction_id = array_append(post_reaction_id, '#{account["post_id"]}')
             WHERE user_id=#{account["user_id"]}
+            RETURNING user_id, user_name, post_id, sub_reddit_id, post_reaction_id ;
         SQL
     )
-    p "Reacted to post"
+    {"user_id" => results.first["user_id"].to_i,
+      "username" => results.first["user_name"],
+      "post_id" => results.first["title"],
+      "sub_reddit_id" => results.first["sub_reddit_id"],
+      "post_reaction_id" => results.first["post_reaction_id"]
+      }
 
   end
 
