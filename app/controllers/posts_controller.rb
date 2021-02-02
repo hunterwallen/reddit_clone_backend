@@ -25,11 +25,11 @@ class PostsController < ApplicationController
   end
 
   def upvote
-    render json: Post.upvote(params["post"])
+    render json: Post.upvote(params["post_id"])
   end
 
   def downvote
-    render json: Post.downvote(params["post"])
+    render json: Post.downvote(params["post_id"])
   end
 
 end
